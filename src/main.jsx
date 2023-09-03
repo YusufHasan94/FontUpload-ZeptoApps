@@ -6,16 +6,26 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Main from './Components/Main/Main.jsx';
+import Preview from './Components/Preview/Preview.jsx';
+import Upload from './Components/Upload/Upload.jsx';
+import Group from './Components/Group/Group.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: <App/>,
     children:[
       {
         path:"/",
-        element: <Main></Main>
+        element: <Upload/>
+      },
+      {
+        path: "/preview",
+        element: <Preview/>
+      },
+      {
+        path: "/group",
+        element: <Group/>
       }
     ]
   },
