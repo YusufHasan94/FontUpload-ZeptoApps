@@ -59,7 +59,7 @@ const Group = () => {
             </div>
             <div>
                 <div className="flex flex-col justify-center items-center my-10">
-                    <h1 className="my-4 text-2xl">List of All Fonts</h1>
+                    <h1 className="my-4 text-2xl">List of All Groups</h1>
                     <table className="border-2 w-3/4 text-center">
                         <tr className="border-2">
                             <th className="border-2">Font Name</th>
