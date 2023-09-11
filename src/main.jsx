@@ -9,6 +9,7 @@ import {
 import Preview from './Components/Preview/Preview.jsx';
 import Upload from './Components/Upload/Upload.jsx';
 import Group from './Components/Group/Group.jsx';
+import NotFound from './Components/NotFound/NotFound.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,10 @@ const router = createBrowserRouter([
         element: <Group/>
       }
     ]
-  },
+  },{
+    path: "*",
+    element: <NotFound></NotFound>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
