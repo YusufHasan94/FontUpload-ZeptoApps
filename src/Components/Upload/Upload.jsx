@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Title from "../Title/Title";
-import FileUpload from "../FileUpload/FileUpload";
 import Swal from "sweetalert2";
 
 
 const Upload = () => {
     const [dragging, setDragging] = useState(false);
     const [selectedFiles, setSelectedFiles] = useState(null);
-    // const allowedFileTypes = ['font/ttf'];
 
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -24,14 +22,24 @@ const Upload = () => {
         e.preventDefault();
         setDragging(false);
         const files = e.dataTransfer.files[0];
-        setSelectedFiles(files);
-        console.log(files, selectedFiles);
+        console.log(files);
+        if(files.name.split(".")[1] == 'ttf'){
+            setSelectedFiles(files);
+        }
+        else{
+           console.log("only ttf file allowed to store");
+        }
     };
 
     const handleFileSelect = async (e) => {
         const files = e.target.files[0];
-        setSelectedFiles(files);
-        console.log(files);
+        console.log(files.name);
+        if(files.name.split(".")[1] == 'ttf'){
+            setSelectedFiles(files);
+        }
+        else{
+            console.log("only ttf file allowed to store");
+        }
     };
 
     const handleSubmit = async () => {
@@ -98,7 +106,7 @@ const Upload = () => {
                         <div className="selected-files mt-5">
                             <h3>Selected Files:</h3>
                             <ul className="list-none p-0">
-                                {selectedFiles.name}
+                                {selectedFiles?.name}
                             </ul>
                         </div>
                 </div>

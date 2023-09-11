@@ -13,7 +13,6 @@ const Preview = () => {
   }, [])
 
 
-
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: 'bg-green-500 text-white p-2 rounded-xl font-semibold ',
@@ -22,8 +21,8 @@ const Preview = () => {
     buttonsStyling: false
   })
 
-  const deleteFont = () => {
-    console.log("deleted");
+  const deleteFont = async (id) => {
+    console.log(id, "deleted");
     swalWithBootstrapButtons.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -34,12 +33,26 @@ const Preview = () => {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      } else if (
+          fetch(`http://localhost/fontUploadServer/delete.php?id=${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          })
+          .then(res => {
+            if (res.status == 200) {
+              const available = fonts.filter(i=> i.id !=id);
+              setFonts(available);
+              swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
+          .catch(err => console.log(err));          
+        }
+      else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         swalWithBootstrapButtons.fire(
@@ -58,15 +71,17 @@ const Preview = () => {
         <table className="border-2 w-3/4 text-center">
           <tr className="border-2">
             <th className="border-2">Font Name</th>
+            <th className="border-2">Font type</th>
             <th className="border-2">Preview</th>
             <th className="border-2">Action</th>
           </tr>
           {
             fonts.map((i, index) => (
               <tr className="border-2" key={index}>
-                <td className="border-2">{i.font_name.split(".ttf")}</td>
+                <td className="border-2">{i.font_name.split(".")[0]}</td>
+                <td className="border-2">{i.file_type}</td>
                 <td className="border-2">{i.preview}</td>
-                <td className="border-2"><button className="text-red-600" onClick={deleteFont}>Delete</button></td>
+                <td className="border-2"><button className="text-red-600" onClick={() => deleteFont(i.id)}>Delete</button></td>
               </tr>
             ))
           }
