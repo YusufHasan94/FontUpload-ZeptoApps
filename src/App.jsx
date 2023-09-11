@@ -6,9 +6,9 @@ import Footer from './Components/Footer/Footer'
 function App() {
 
   return (
-    <div className='mx-10'>
+    <div className='md:mx-10'>
       <Header></Header>
-      <div className='min-h-screen'>
+      <div className='min-h-screen mb-20 md:mb-10'>
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

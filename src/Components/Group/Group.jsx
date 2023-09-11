@@ -10,6 +10,7 @@ const Group = () => {
   const [editModalCondition, setEditModalCondition] = useState(false);
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [requestedEdit, setRequestedEdit] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost/fontUploadServer/fetchgroup.php")
@@ -24,8 +25,9 @@ const Group = () => {
   const handleModal = () => {
     setModalCondition(!modalCondition);
   }
-  const handleEdit = () => {
+  const handleEdit = (value) => {
     setEditModalCondition(!editModalCondition);
+    setRequestedEdit(value);
   }
 
 
@@ -36,7 +38,7 @@ const Group = () => {
     },
     buttonsStyling: false
   })
-  const deleteFontGroup = (id) => {
+  const deleteFontGroup = (name) => {
     swalWithBootstrapButtons.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -48,15 +50,16 @@ const Group = () => {
     }).then((result) => {
       console.log(result);
       if (result.isConfirmed) {
-        fetch(`http://localhost/fontUploadServer/groupDelete.php?id=${id}`, {
+        fetch(`http://localhost/fontUploadServer/groupDelete.php?name=${name}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json'
           },
         })
           .then(res => {
+            console.log(res);
             if (res.status == 200) {
-              const extra = groups.filter(i => i.id != id);
+              const extra = groups.filter(i => i.group_name != name);
               setGroups(extra);
               // console.log(availableData);
               swalWithBootstrapButtons.fire(
@@ -97,7 +100,7 @@ const Group = () => {
               visible={true}
               ariaLabel='falling-lines-loading'
             /> :
-              <table className="border-2 w-3/4 text-center">
+              <table className="w-11/12 border-2  md:w-3/4 text-center">
                 <thead>
                   <tr className="border-2">
                     <th className="border-2">Group Name</th>
@@ -110,12 +113,12 @@ const Group = () => {
                     groups.map(i => (
                       <tr className="border-2" key={i.id}>
                         <td className="border-2">{i.group_name}</td>
-                        <td className="border-2">{i.all_fonts}</td>
+                        <td className="border-2">{i.concatenated_fonts}</td>
                         <td className="border-2">
-                          <button className="text-blue-600" onClick={handleEdit}>Edit</button> |
-                          <button className="text-red-600" onClick={() => deleteFontGroup(i.id)}>Delete</button>
+                          <button className="text-blue-600" onClick={()=> handleEdit(i.group_name)}>Edit</button> |
+                          <button className="text-red-600" onClick={() => deleteFontGroup(i.group_name)}>Delete</button>
                           {
-                            editModalCondition ? <EditModal handleEdit={handleEdit}></EditModal> : ""
+                            editModalCondition ? <EditModal handleEdit={handleEdit} requestedEdit={requestedEdit}></EditModal> : ""
                           }
                         </td>
                       </tr>

@@ -52,7 +52,7 @@ const Modal = ({ handleModal }) => {
 
 
     return (
-        <div className="absolute top-28 left-60 bg-white w-3/4 border-2 p-4 rounded-xl">
+        <div className="absolute top-1/2 left-0 md:top-28 md:left-60 bg-white w-full md:w-3/4 border-2 p-4 rounded-xl">
             <div>
                 <button onClick={handleModal} className="absolute top-5 left-5">
                     <FaXmark />
@@ -66,20 +66,20 @@ const Modal = ({ handleModal }) => {
                     <table className="border-2 w-3/4 text-center">
                         <thead>
                             <tr className="border-2">
-                                <th className="border-2">Font Name</th>
-                                <th className="border-2">Font Type</th>
-                                <th className="border-2">Preview</th>
-                                <th className="border-2">Action</th>
+                                <th className="border-2 px-1">Font Name</th>
+                                <th className="border-2 px-1">Font Type</th>
+                                <th className="border-2 px-1">Preview</th>
+                                <th className="border-2 px-1">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 fonts.map((i, index) => (
                                     <tr className="border-2" key={index}>
-                                        <td className="border-2">{i.font_name}</td>
-                                        <td className="border-2">{i.file_type}</td>
-                                        <td className="border-2"></td>
-                                        <td className="border-2"><button className='text-gray-600' onClick={() => handleSelect(i.id)}>Select</button></td>
+                                        <td className="border-2 px-1">{i.font_name}</td>
+                                        <td className="border-2 px-1">{i.file_type}</td>
+                                        <td className="border-2 px-1"></td>
+                                        <td className="border-2 px-1"><button className='text-gray-600' onClick={() => handleSelect(i.id)}>Select</button></td>
                                     </tr>
                                 ))
                             }

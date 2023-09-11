@@ -68,23 +68,27 @@ const Preview = () => {
     <div className="my-10">
       <Title title="Preview of All Fonts" />
       <div className="flex justify-center items-center my-10">
-        <table className="border-2 w-3/4 text-center">
-          <tr className="border-2">
-            <th className="border-2">Font Name</th>
-            <th className="border-2">Font type</th>
-            <th className="border-2">Preview</th>
-            <th className="border-2">Action</th>
-          </tr>
-          {
-            fonts.map((i, index) => (
-              <tr className="border-2" key={index}>
-                <td className="border-2">{i.font_name.split(".")[0]}</td>
-                <td className="border-2">{i.file_type}</td>
-                <td className="border-2">{i.preview}</td>
-                <td className="border-2"><button className="text-red-600" onClick={() => deleteFont(i.id)}>Delete</button></td>
-              </tr>
-            ))
-          }
+        <table className="w-full mx-2 border-2 md:w-3/4 text-center">
+          <thead>
+            <tr className="border-2">
+              <th className="border-2 px-1">Font Name</th>
+              <th className="border-2 px-1">Font type</th>
+              <th className="border-2 px-1">Preview</th>
+              <th className="border-2 px-1">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              fonts.map((i, index) => (
+                <tr className="border-2" key={index}>
+                  <td className="border-2 px-1">{i.font_name.split(".")[0]}</td>
+                  <td className="border-2 px-1">{i.file_type}</td>
+                  <td className="border-2 px-1">{i.preview}</td>
+                  <td className="border-2 px-1"><button className="text-red-600" onClick={() => deleteFont(i.id)}>Delete</button></td>
+                </tr>
+              ))
+            }
+          </tbody>
         </table>
       </div>
     </div>

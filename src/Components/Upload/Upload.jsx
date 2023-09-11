@@ -83,7 +83,7 @@ const Upload = () => {
             <div>
                 <Title title="Upload Your Fonts" />
                 <div
-                    className={`file-uploader border-2 border-dashed py-20 px-40 text-center rounded-lg ${dragging ? 'bg-gray-300' : ''}`}
+                    className={`file-uploader border-2 border-dashed px-10 py-5 md:py-20 md:px-40 text-center rounded-lg ${dragging ? 'bg-gray-300' : ''}`}
                     onDragOver={handleDragOver}
                     onDragLeave={handleDragLeave}
                     onDrop={handleDrop}
